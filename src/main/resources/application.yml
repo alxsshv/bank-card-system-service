@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: bank-card-system-service
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/card_system_db
+    username: alexei
+    password: test
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+      show-sql: true
+app:
+  jwt:
+    secret: "VGhpc1lvdXJCYW5rQ2FyZFN5c3RlbVNlY3JldEtleUZvclNoYUFsZ29yaXRobXM="
+    tokenExpiration: 5m
+    refreshTokenExpiration: 25m
+  scheduler:
+    enabled: true
+    expirationTokenDeleteInterval: PT30M
+    expirationCardInterval: 4h
+  card:
+    expiration: 3d
