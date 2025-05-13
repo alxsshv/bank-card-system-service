@@ -7,7 +7,7 @@
 
     <changeSet id="13-05-2025-create-table-tokens" author="shvariov.a">
 
-        <createTable tableName="token" remarks="refresh tokens">
+        <createTable tableName="tokens" remarks="refresh tokens">
 
             <column name="id" type="bigint" autoIncrement="true" remarks="Идентификатор">
                 <constraints nullable="false" unique="true" primaryKey="true"/>

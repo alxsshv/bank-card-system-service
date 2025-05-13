@@ -30,7 +30,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
 	implementation("org.postgresql:postgresql:42.7.5")
-
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.6")
 	implementation("io.jsonwebtoken:jjwt:0.12.6")
 	implementation("jakarta.xml.bind:jakarta.xml.bind-api:4.0.2")
 	implementation("org.liquibase:liquibase-core:4.31.1")

@@ -17,11 +17,8 @@ spring:
       show-sql: false
 
   liquibase:
-    change-log: classpath:db/changelog-master.xml
-
-logging:
-    file:
-      name: logs/application.log
+    enabled: true
+    change-log: classpath:database/changelog/master.xml
 
 app:
   jwt:
