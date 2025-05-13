@@ -24,10 +24,9 @@ docker-compose down
 
 Для запуска  демонстрационной версии проекта необходимо:
 - установить Docker на Ваш компьютер в соответствии с [данным руководством](https://docs.docker.com/get-started/get-docker/) и [Docker Compose](https://docs.docker.com/compose/install/);
-- скачать файл docker-compose-demo.yaml из директории данного проекта;
 - обеспечить доступ к сети интернет.
 
-Окрыть каталог с файлом docker-compose-demo.yaml терминале (командной строке) и выполнить команду:
+Окрыть каталог с файлом docker-compose-postgres.yaml терминале (командной строке) и выполнить команду:
 
 docker-compose -f docker-compose-postgres.yaml up
 
