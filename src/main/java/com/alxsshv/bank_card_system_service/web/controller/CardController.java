@@ -7,6 +7,8 @@ import com.alxsshv.bank_card_system_service.dto.response.SimpleResponse;
 import com.alxsshv.bank_card_system_service.model.User;
 import com.alxsshv.bank_card_system_service.service.CardService;
 import com.alxsshv.bank_card_system_service.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
@@ -25,18 +27,22 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/cards")
 @Slf4j
+@Tag(name = "Управление картами",
+        description = "Создание, удаление, активация, блокировка и другие операции с картами")
 public class CardController {
     @Autowired
     private final CardService cardService;
     @Autowired
     private final UserService userService;
 
+    @Operation(
+            summary = "Добавление карты администратором"
+    )
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<SimpleResponse> createCard(
@@ -47,6 +53,9 @@ public class CardController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new SimpleResponse(message));
     }
 
+    @Operation(
+            summary = "Активация заблокированной карты"
+    )
     @PatchMapping("/activate/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<SimpleResponse> activateCard(@PathVariable("id") long id) {
@@ -56,6 +65,9 @@ public class CardController {
         return ResponseEntity.ok(new SimpleResponse(message));
     }
 
+    @Operation(
+            summary = "Блокировка карты администратором"
+    )
     @PatchMapping("/block/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<SimpleResponse> blockCard(@PathVariable("id") long id) {
@@ -65,6 +77,9 @@ public class CardController {
         return ResponseEntity.ok(new SimpleResponse(message));
     }
 
+    @Operation(
+            summary = "Удаление карты администратором"
+    )
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<SimpleResponse> deleteCard(@PathVariable("id") long id) {
@@ -74,6 +89,9 @@ public class CardController {
         return ResponseEntity.ok(new SimpleResponse(message));
     }
 
+    @Operation(
+            summary = "Просмотр всех выпущенных карт администратором"
+    )
     @GetMapping("/all")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Page<CardDto>> getAllCards(
@@ -86,6 +104,9 @@ public class CardController {
         return ResponseEntity.ok(cardService.findAll(pageable));
     }
 
+    @Operation(
+            summary = "Получение списка своих карт пользователем"
+    )
     @GetMapping
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<Page<CardDto>> getAllUserCards(
@@ -100,6 +121,9 @@ public class CardController {
         return ResponseEntity.ok(cardService.findAllByUserId(user.getId(), pageable));
     }
 
+    @Operation(
+            summary = "Поиск карт по номеру карты"
+    )
     @GetMapping("/search/byNumber")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<Page<CardDto>> searchUserCardsByNumber(
@@ -119,6 +143,9 @@ public class CardController {
         return ResponseEntity.ok(cardService.findAllByNumberAndUserId(searchNumber, user.getId(), pageable));
     }
 
+    @Operation(
+            summary = "Поиск всех карт пользователя с определенным статусом"
+    )
     @GetMapping("/search/byStatus")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<Page<CardDto>> searchUserCardsByStatus(
@@ -134,6 +161,10 @@ public class CardController {
         return ResponseEntity.ok(cardService.findAllByStatusAndUserId(searchStatus, user.getId(), pageable));
     }
 
+    @Operation(
+            summary = "Поиск всех карт срок действия которых истекает" +
+                    " в период с даты в параметре start до даты в параметре end"
+    )
     @GetMapping("/search/byExpire")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<Page<CardDto>> searchUserCardsByExpireDate(
@@ -150,7 +181,9 @@ public class CardController {
         return ResponseEntity.ok(cardService.findAllByExpireDateAndUserId(startDate, endDate, user.getId(), pageable));
     }
 
-
+    @Operation(
+            summary = "Блокировка карты пользователем"
+    )
     @PatchMapping("/set-block/{id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<SimpleResponse> userBlockCard(@PathVariable("id") long id,
@@ -162,6 +195,9 @@ public class CardController {
         return ResponseEntity.ok(new SimpleResponse(message));
     }
 
+    @Operation(
+            summary = "Просмотр пользователем баланса по своей карте с указанным id"
+    )
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<BigDecimal> getCardBalance(@PathVariable("id") long id,

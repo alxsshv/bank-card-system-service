@@ -5,6 +5,8 @@ import com.alxsshv.bank_card_system_service.dto.response.SimpleResponse;
 import com.alxsshv.bank_card_system_service.model.User;
 import com.alxsshv.bank_card_system_service.service.MoneyTransferService;
 import com.alxsshv.bank_card_system_service.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +24,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/transfer")
 @Slf4j
+@Tag(name = "Денежные переводы",
+        description = "Денежные переводы между картами одного пользователя")
 public class MoneyTransferController {
     @Autowired
     private final MoneyTransferService moneyTransferService;
     @Autowired
     private final UserService userService;
 
+    @Operation(
+            summary = "Денежный перевод с карты на карту"
+    )
     @PostMapping
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<SimpleResponse> transferMoney(

@@ -9,6 +9,8 @@ import com.alxsshv.bank_card_system_service.dto.response.UserDto;
 import com.alxsshv.bank_card_system_service.model.User;
 import com.alxsshv.bank_card_system_service.service.SecurityService;
 import com.alxsshv.bank_card_system_service.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 @Slf4j
+@Tag(name = "Пользователи", description = "Создание и удаление пользователей (только для администраторов)")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -34,6 +37,10 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
+    @Operation(
+            summary = "Добавление пользователей",
+            description = "Администратор может добавлять пользователей"
+    )
     @PostMapping()
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<SimpleResponse> createUser(
@@ -44,6 +51,10 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new SimpleResponse(message));
     }
 
+    @Operation(
+            summary = "Поиск всех пользователей",
+            description = "Администратор может просматривать всех пользователей"
+    )
     @GetMapping()
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Page<UserDto>> findAllUsers(
@@ -57,7 +68,10 @@ public class UserController {
         return ResponseEntity.ok(userMapper.toUserDtoPage(users));
     }
 
-
+    @Operation(
+            summary = "Обновление данных пользователя",
+            description = "Изменение почты, пароля, роли (прав доступа)"
+    )
     @PutMapping()
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<SimpleResponse> updateUser(@Validated @RequestBody UpdateUserRequest request) {
@@ -67,6 +81,10 @@ public class UserController {
         return ResponseEntity.ok().body(new SimpleResponse(message));
     }
 
+    @Operation(
+            summary = "Удаление аккаунта",
+            description = "Администратор может удалять аккаунты пользователей"
+    )
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<SimpleResponse> deleteUser(@PathVariable("id") long id) {

@@ -7,6 +7,8 @@ import com.alxsshv.bank_card_system_service.dto.response.AuthResponse;
 import com.alxsshv.bank_card_system_service.dto.response.RefreshTokenResponse;
 import com.alxsshv.bank_card_system_service.dto.response.SimpleResponse;
 import com.alxsshv.bank_card_system_service.service.SecurityService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +26,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 @Slf4j
+@Tag(name = "Авторизация пользователей",
+        description = "Регистрация, вход в систему, обновление JWT токена, выход из системы")
 public class AuthController {
 
     @Autowired
     private final SecurityService securityService;
 
+    @Operation(
+            summary = "Вход в систему",
+            description = "Метод позволяет войти в систему," +
+                    " используя логин или адрес электронной почты и пароль"
+    )
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> loginUser(@Validated @RequestBody LoginRequest loginRequest) {
         AuthResponse authResponse = securityService.loginUser(loginRequest);
@@ -37,6 +46,10 @@ public class AuthController {
         return ResponseEntity.ok(authResponse);
     }
 
+    @Operation(
+            summary = "Регистрация пользователя",
+            description = "Позволяет зарегистрироваться пользователю"
+    )
     @PostMapping("/register")
     public ResponseEntity<SimpleResponse> registerUser(@Validated @RequestBody RegisterUserRequest request) {
         securityService.registerUser(request);
@@ -45,11 +58,19 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new SimpleResponse(message));
     }
 
+    @Operation(
+            summary = "Обновление токена",
+            description = "Позволяет обновит пару refresh-токен," +
+                    " access-токен используя ранее выданный refresh-токен"
+    )
     @PostMapping("/refresh-token")
     public ResponseEntity<RefreshTokenResponse> refreshToken(@RequestBody RefreshTokenRequest request) {
         return ResponseEntity.ok(securityService.refreshToken(request));
     }
 
+    @Operation(
+            summary = "Выход пользователя из системы"
+    )
     @PostMapping("/logout")
     public ResponseEntity<SimpleResponse> logout(@AuthenticationPrincipal UserDetails userDetails) {
         securityService.logout();

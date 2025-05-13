@@ -1,0 +1,28 @@
+services:
+  bank-card-service:
+    build: .
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/card_system_db
+      SPRING_DATASOURCE_USERNAME: jUser
+      SPRING_DATASOURCE_PASSWORD: jPassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none
+    ports:
+      - "8080:8080"
+
+  database:
+    image: "postgres:17"
+    container_name: "database"
+    environment:
+      POSTGRES_DB: "card_system_db"
+      POSTGRES_USER: "jUser"
+      POSTGRES_PASSWORD: "jPassword"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -UjUser -dcard_system_db" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s

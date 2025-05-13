@@ -9,16 +9,17 @@ spring:
     username: alexei
     password: test
   jpa:
+    show-sql: false
     hibernate:
       ddl-auto: none
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-      show-sql: false
 
   liquibase:
     enabled: true
     change-log: classpath:database/changelog/master.xml
+
+logging:
+  file:
+    name: logs/application.log
 
 app:
   jwt:
@@ -31,3 +32,83 @@ app:
     expirationCardInterval: 4h
   card:
     expiration: 3d
+  security:
+    administrator:
+      enabled: true
+      username: "admin"
+      email: "admin@email.com"
+      password: "admin"
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "test"
+  datasource:
+    platform: postgres
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    enabled: true
+    change-log: classpath:database/changelog/master.xml
+
+logging:
+  file:
+    name: logs/application.log
+
+app:
+  jwt:
+    secret: "VGhpc1lvdXJCYW5rQ2FyZFN5c3RlbVNlY3JldEtleUZvclNoYUFsZ29yaXRobXM="
+    tokenExpiration: 5m
+    refreshTokenExpiration: 25m
+  scheduler:
+    enabled: true
+    expirationTokenDeleteInterval: PT30M
+    expirationCardInterval: 4h
+  card:
+    expiration: 3d
+  security:
+    administrator:
+      enabled: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "docker"
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/card_system_db
+    username: jUser
+    password: jPassword
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    enabled: true
+    change-log: classpath:database/changelog/master.xml
+
+logging:
+  file:
+    name: logs/application.log
+
+app:
+  jwt:
+    secret: "VGhpc1lvdXJCYW5rQ2FyZFN5c3RlbVNlY3JldEtleUZvclNoYUFsZ29yaXRobXM="
+    tokenExpiration: 5m
+    refreshTokenExpiration: 25m
+  scheduler:
+    enabled: true
+    expirationTokenDeleteInterval: PT30M
+    expirationCardInterval: 4h
+  card:
+    expiration: 3d
+  security:
+    administrator:
+      enabled: true
+      username: "admin"
+      email: "admin@email.com"
+      password: "admin"

@@ -5,6 +5,7 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.31.xsd">
 
 
+    <include file="v.1.0.0/13-05-2025-create-sequence-card-seq.xml" relativeToChangelogFile="true"/>
     <include file="v.1.0.0/13-05-2025-create-table-cards.xml" relativeToChangelogFile="true"/>
     <include file="v.1.0.0/13-05-2025-create-table-tokens.xml" relativeToChangelogFile="true"/>
     <include file="v.1.0.0/13-05-2025-create-table-service-users.xml" relativeToChangelogFile="true"/>
