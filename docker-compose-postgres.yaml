@@ -1,0 +1,15 @@
+services:
+  database:
+    image: "postgres:17"
+    container_name: "database"
+    environment:
+      POSTGRES_DB: "card_system_db"
+      POSTGRES_USER: "alexei"
+      POSTGRES_PASSWORD: "test"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -Ualexei -dcard_system_db" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
