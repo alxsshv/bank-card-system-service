@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.31.xsd">
+
+    <changeSet id="13-05-2025-create-table-cards" author="shvariov.a">
+        <createTable tableName="user_roles" remarks="Роли пользователей">
+
+            <column name="user_id" type="bigint" remarks="Идентификатор пользователя">
+                <constraints nullable="false" primaryKey="true"  primaryKeyName="pk_user_roles"/>
+            </column>
+
+            <column name="roles" type="varchar(255)" remarks="Номер карты (зашифрованный)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_user_roles"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

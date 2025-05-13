@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.31.xsd">
+
+    <changeSet id="13-05-2025-create-table-tokens" author="shvariov.a">
+
+        <createTable tableName="token" remarks="refresh tokens">
+
+            <column name="id" type="bigint" autoIncrement="true" remarks="Идентификатор">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+
+            <column name="user_id" type="bigint" remarks="Идентификатор пользователя (владельца токена)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="token" type="varchar(255)" remarks="Токен">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            
+            <column name="expiration_date" type="timestamptz(6)" remarks="Дата истечения срока действия токена"/>
+
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

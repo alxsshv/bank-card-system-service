@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.31.xsd">
+
+    <changeSet id="13-05-2025-create-indexes-for-table-cards" author="shvariov.a">
+        <createIndex indexName="idx_cards_user_id" tableName="cards">
+            <column name="user_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_cards_public_number" tableName="cards">
+            <column name="public_number"/>
+        </createIndex>
+
+        <createIndex indexName="idx_cards_number_hash" tableName="cards">
+            <column name="number_hash"/>
+        </createIndex>
+
+        <createIndex indexName="idx_cards_id" tableName="cards">
+            <column name="id"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

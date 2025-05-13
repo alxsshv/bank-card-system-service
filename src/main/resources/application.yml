@@ -1,6 +1,8 @@
+---
 spring:
-  application:
-    name: bank-card-system-service
+  config:
+    activate:
+      on-profile: "default"
   datasource:
     platform: postgres
     url: jdbc:postgresql://localhost:5432/card_system_db
@@ -8,11 +10,19 @@ spring:
     password: test
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-      show-sql: true
+      show-sql: false
+
+  liquibase:
+    change-log: classpath:db/changelog-master.xml
+
+logging:
+    file:
+      name: logs/application.log
+
 app:
   jwt:
     secret: "VGhpc1lvdXJCYW5rQ2FyZFN5c3RlbVNlY3JldEtleUZvclNoYUFsZ29yaXRobXM="

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.31.xsd">
+
+    <changeSet id="13-05-2025-create-indexes-for-table-service-users" author="shvariov.a">
+        <createIndex indexName="idx_service_users_email" tableName="service_users">
+            <column name="email"/>
+        </createIndex>
+
+        <createIndex indexName="idx_service_users_number" tableName="service_users">
+            <column name="username"/>
+        </createIndex>
+
+        <createIndex indexName="idx_service_users_id" tableName="service_users">
+            <column name="id"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
