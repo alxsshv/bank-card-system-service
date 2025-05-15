@@ -1,7 +1,6 @@
 package com.alxsshv.bank_card_system_service.dto.request;
 
 import com.alxsshv.bank_card_system_service.model.SystemRole;
-import com.alxsshv.bank_card_system_service.validation.UsernameNotExist;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
