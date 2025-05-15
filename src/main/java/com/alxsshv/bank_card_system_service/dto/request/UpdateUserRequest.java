@@ -22,7 +22,6 @@ public class UpdateUserRequest {
 
     @NotNull(message = "Имя пользователя не указано")
     @Size(min = 3, max = 50, message = "Имя пользователя должно содержать не менее 3 и не более 50 символов")
-    @UsernameNotExist
     @Schema(description = "Имя пользователя для входа в систему (Имя пользователя изменить нельзя)",
             example = "Ivanov", minLength = 3, maxLength = 50)
     private String username;
