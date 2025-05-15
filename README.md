@@ -19,10 +19,11 @@ docker-compose -f docker-compose-demo.yaml up
 ``` 
 docker-compose down
 ```
-### Запуск склонированного проекта ###
+### Запуск проекта через IntellijIdea ###
 Данный вариант запуска позволяет внести изменения в проект и запустить его на пк с развертыванием базы данных в docker. 
 
-Для запуска  демонстрационной версии проекта необходимо:
+Для запуска  проекта необходимо:
+- клонировать проект в локальный репозиторий и открыть его в среде IntellijIdea;
 - установить Docker на Ваш компьютер в соответствии с [данным руководством](https://docs.docker.com/get-started/get-docker/) и [Docker Compose](https://docs.docker.com/compose/install/);
 - обеспечить доступ к сети интернет.
 
@@ -30,9 +31,13 @@ docker-compose down
 
 docker-compose -f docker-compose-postgres.yaml up
 
-ЗатеМ в среде разработки запустить проект при помощи стартового класса BankCardSystemServiceApplication.java
+Затем в среде разработки запустить проект при помощи стартового класса BankCardSystemServiceApplication.java
 
 После ознакомления с проектом необходимо остановить конейнер и выполнить команду
 ``` 
 docker-compose down
 ```
+### Доступ к openApi ###
+Документацию по эндпоинтам проекта в формате openApi можно получить после запуска проекта по ссылкам:
+- [Swagger UI](http://localhost:8080/swagger-ui/index.html)
+- [Open Api в формате JSON](http://localhost:8080/v3/api-docs) 
